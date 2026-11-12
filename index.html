@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="ku" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kurd Movie | باشترین فیلمەکان بە ژێرنووس و دۆبلاژ</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: system-ui, -apple-system, 'Segoe UI', Tahoma, sans-serif;
+        }
+        body {
+            background-color: #0b0c10;
+            color: #ffffff;
+            line-height: 1.6;
+        }
+        header {
+            background-color: #14161d;
+            padding: 18px 5%;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid #252834;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            gap: 15px;
+        }
+        .logo {
+            font-size: 28px;
+            font-weight: 800;
+            color: #e50914;
+            letter-spacing: 1px;
+            direction: ltr;
+        }
+        .logo span {
+            color: #ffffff;
+        }
+        .filters {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+        .filters button {
+            background: #1f222d;
+            border: 1px solid #323646;
+            color: #ddd;
+            padding: 7px 14px;
+            border-radius: 20px;
+            cursor: pointer;
+            transition: 0.25s;
+            font-size: 13px;
+        }
+        .filters button:hover, .filters button.active {
+            background-color: #e50914;
+            color: white;
+            border-color: #e50914;
+        }
+        .hero {
+            background: linear-gradient(to top, #0b0c10 10%, rgba(11, 12, 16, 0.5) 100%), 
+                        url('https://unsplash.com') center/cover;
+            height: 360px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            padding: 0 5%;
+        }
+        .hero h1 {
+            font-size: 36px;
+            margin-bottom: 10px;
+            max-width: 650px;
+        }
+        .hero p {
+            color: #cccccc;
+            font-size: 17px;
+            max-width: 550px;
+        }
+        .container {
+            padding: 35px 5%;
+        }
+        .section-title {
+            font-size: 22px;
+            margin-bottom: 22px;
+            border-right: 4px solid #e50914;
+            padding-right: 12px;
+        }
+        .movies-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+            gap: 22px;
+        }
+        .movie-card {
+            background-color: #161821;
+            border-radius: 10px;
+            overflow: hidden;
+            transition: transform 0.3s ease;
+            cursor: pointer;
+            border: 1px solid #242734;
+            position: relative;
+        }
+        .movie-card:hover {
+            transform: translateY(-6px);
+            border-color: #e50914;
+        }
+        .lang-badge {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background-color: rgba(229, 9, 20, 0.92);
+            color: white;
+            padding: 3px 10px;
+            border-radius: 6px;
+            font-size: 12px;
+            font-weight: bold;
+        }
+        .movie-poster {
+            width: 100%;
+            height: 300px;
+            object-fit: cover;
+        }
+        .movie-info {
+            padding: 14px;
+        }
+        .movie-title {
+            font-size: 17px;
+            font-weight: bold;
+            margin-bottom: 6px;
+        }
+        .movie-meta {
+            display: flex;
+            justify-content: space-between;
+            color: #aaa;
+            font-size: 13px;
+        }
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            background: rgba(0,0,0,0.92);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+            padding: 15px;
+            overflow-y: auto;
+        }
+        .modal-content {
+            background: #14161d;
+            width: 100%;
+            max-width: 850px;
+            border-radius: 12px;
+            overflow: hidden;
+            position: relative;
+            border: 1px solid #2c303e;
+        }
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 20px;
+            background: #1b1e28;
+        }
+        .close-btn {
+            font-size: 28px;
+            color: #fff;
+            cursor: pointer;
+            line-height: 1;
+        }
+        .servers-bar {
+            background: #101218;
+            padding: 12px 20px;
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            gap: 10px;
+            border-bottom: 1px solid #252834;
+        }
+        .servers-bar span {
+            font-size: 14px;
+            color: #bbb;
+            font-weight: bold;
+        }
+        .server-btn {
+            background: #232735;
+            color: #fff;
+            border: 1px solid #383e54;
+            padding: 6px 14px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 13px;
+            transition: 0.2s;
+        }
+        .server-btn:hover, .server-btn.active {
+            background: #e50914;
+            border-color: #e50914;
+        }
+        .video-wrapper {
+            position: relative;
+            padding-bottom: 56.25%;
+            height: 0;
+            background: #000;
+        }
+        .video-wrapper iframe {
+            position: absolute;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            border: none;
+        }
+        .modal-details {
+            padding: 20px;
+        }
+        footer {
+            text-align: center;
+            padding: 25px;
+            background-color: #14161d;
+            color: #888;
+            margin-top: 50px;
+            border-top: 1px solid #252834;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="logo">Kurd <span>Movie</span></div>
+        <div class="filters">
+            <button class="active" onclick="filterByLang('all', this)">هەموو زمانەکان</button>
+            <button onclick="filterByLang('sorani', this)">کوردی سۆرانی</button>
+            <button onclick="filterByLang('badini', this)">کوردی بادینی</button>
+            <button onclick="filterByLang('english', this)">ئینگلیزی</button>
+            <button onclick="filterByLang('turkish', this)">تورکی</button>
+            <button onclick="filterByLang('arabic', this)">عەرەبی</button>
+        </div>
+    </header>
+
+    <section class="hero">
+        <h1>بەخێربێن بۆ Kurd Movie</h1>
+        <p>سەیری خۆشترین فیلمە جیهانییەکان بکە بە زمانی کوردی سۆرانی، بادینی، و زمانە جیهانییەکان لەسەر خێراترین سێرڤەرەکان.</p>
+    </section>
+
+    <div class="container">
+        <h2 class="section-title">فیلمە بەردەستەکان</h2>
+        <div class="movies-grid" id="moviesGrid"></div>
+    </div>
+
+    <div class="modal" id="videoModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 id="modalTitle">ناوی فیلم</h3>
+                <span class="close-btn" onclick="closeModal()">&times;</span>
+            </div>
+            
+            <div class="servers-bar" id="serversBar">
+                <span>سێرڤەر هەڵبژێرە:</span>
+            </div>
+
+            <div class="video-wrapper">
+                <iframe id="videoPlayer" src="" allowfullscreen></iframe>
+            </div>
+            
+            <div class="modal-details">
+                <p id="modalDesc" style="color: #ccc;"></p>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <p>هەموو مافەکان پارێزراوە بۆ Kurd Movie &copy; 2026</p>
+    </footer>
+
+    <script>
+        const movies = [
+            {
+                title: "ئینتەرستێلەر (Interstellar)",
+                lang: "sorani",
+                langName: "کوردی سۆرانی",
+                year: "2014",
+                rating: "8.7",
+                poster: "https://unsplash.com",
+                desc: "گروپێک لە گەڕیدەکانی بۆشایی ئاسمان گەشت دەکەن بۆ دۆزینەوەی هەسارەیەکی نوێ بۆ مرۆڤایەتی.",
+                servers: [
+                    { name: "سێرڤەری 1 (AppShare)", url: "https://youtube.com" },
+                    { name: "سێرڤەری 2 (خێرا)", url: "https://youtube.com" },
+                    { name: "سێرڤەری 3 (یەدەگ)", url: "https://youtube.com" }
+                ]
+            },
+            {
+                title: "سوارچاکی تاریکی (The Dark Knight)",
+                lang: "badini",
+                langName: "کوردی بادینی",
+                year: "2008",
+                rating: "9.0",
+                poster: "https://unsplash.com",
+                desc: "باتمان ڕووبەڕووی گەورەترین تاقیکردنەوە دەبێتەوە کاتێک جۆکەر پشێوی دەخاتە شاری گۆثامەوە.",
+                servers: [
+                    { name: "سێرڤەری 1 (AppShare)", url: "https://youtube.com" },
+                    { name: "سێرڤەری 2 (HD)", url: "https://youtube.com" }
+                ]
+            },
+            {
+                title: "ئینسێپشن (Inception)",
+                lang: "english",
+                langName: "ئینگلیزی",
+                year: "2010",
+                rating: "8.8",
+                poster: "https://unsplash.com",
