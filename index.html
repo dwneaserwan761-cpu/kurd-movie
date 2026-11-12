@@ -62,24 +62,23 @@
         .hero {
             background: linear-gradient(to top, #0b0c10 10%, rgba(11, 12, 16, 0.5) 100%), 
                         url('https://unsplash.com') center/cover;
-            height: 360px;
+            height: 320px;
             display: flex;
             flex-direction: column;
             justify-content: center;
             padding: 0 5%;
         }
         .hero h1 {
-            font-size: 36px;
+            font-size: 34px;
             margin-bottom: 10px;
-            max-width: 650px;
         }
         .hero p {
             color: #cccccc;
-            font-size: 17px;
+            font-size: 16px;
             max-width: 550px;
         }
         .container {
-            padding: 35px 5%;
+            padding: 30px 5%;
         }
         .section-title {
             font-size: 22px;
@@ -89,8 +88,8 @@
         }
         .movies-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
-            gap: 22px;
+            grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+            gap: 18px;
         }
         .movie-card {
             background-color: #161821;
@@ -102,38 +101,39 @@
             position: relative;
         }
         .movie-card:hover {
-            transform: translateY(-6px);
+            transform: translateY(-5px);
             border-color: #e50914;
         }
         .lang-badge {
             position: absolute;
-            top: 10px;
-            right: 10px;
-            background-color: rgba(229, 9, 20, 0.92);
+            top: 8px;
+            right: 8px;
+            background-color: #e50914;
             color: white;
-            padding: 3px 10px;
-            border-radius: 6px;
-            font-size: 12px;
+            padding: 2px 8px;
+            border-radius: 5px;
+            font-size: 11px;
             font-weight: bold;
         }
         .movie-poster {
             width: 100%;
-            height: 300px;
+            height: 240px;
             object-fit: cover;
+            display: block;
         }
         .movie-info {
-            padding: 14px;
+            padding: 12px;
         }
         .movie-title {
-            font-size: 17px;
+            font-size: 15px;
             font-weight: bold;
-            margin-bottom: 6px;
+            margin-bottom: 5px;
         }
         .movie-meta {
             display: flex;
             justify-content: space-between;
             color: #aaa;
-            font-size: 13px;
+            font-size: 12px;
         }
         .modal {
             display: none;
@@ -145,22 +145,20 @@
             justify-content: center;
             align-items: center;
             padding: 15px;
-            overflow-y: auto;
         }
         .modal-content {
             background: #14161d;
             width: 100%;
-            max-width: 850px;
+            max-width: 800px;
             border-radius: 12px;
             overflow: hidden;
-            position: relative;
             border: 1px solid #2c303e;
         }
         .modal-header {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 15px 20px;
+            padding: 14px 18px;
             background: #1b1e28;
         }
         .close-btn {
@@ -171,15 +169,15 @@
         }
         .servers-bar {
             background: #101218;
-            padding: 12px 20px;
+            padding: 12px 18px;
             display: flex;
             flex-wrap: wrap;
             align-items: center;
-            gap: 10px;
+            gap: 8px;
             border-bottom: 1px solid #252834;
         }
         .servers-bar span {
-            font-size: 14px;
+            font-size: 13px;
             color: #bbb;
             font-weight: bold;
         }
@@ -187,13 +185,12 @@
             background: #232735;
             color: #fff;
             border: 1px solid #383e54;
-            padding: 6px 14px;
+            padding: 6px 12px;
             border-radius: 6px;
             cursor: pointer;
-            font-size: 13px;
-            transition: 0.2s;
+            font-size: 12px;
         }
-        .server-btn:hover, .server-btn.active {
+        .server-btn.active {
             background: #e50914;
             border-color: #e50914;
         }
@@ -210,15 +207,17 @@
             border: none;
         }
         .modal-details {
-            padding: 20px;
+            padding: 16px;
+            font-size: 14px;
         }
         footer {
             text-align: center;
             padding: 25px;
             background-color: #14161d;
             color: #888;
-            margin-top: 50px;
+            margin-top: 40px;
             border-top: 1px solid #252834;
+            font-size: 13px;
         }
     </style>
 </head>
@@ -249,13 +248,11 @@
     <div class="modal" id="videoModal">
         <div class="modal-content">
             <div class="modal-header">
-                <h3 id="modalTitle">ناوی فیلم</h3>
+                <h3 id="modalTitle" style="font-size: 16px;">ناوی فیلم</h3>
                 <span class="close-btn" onclick="closeModal()">&times;</span>
             </div>
             
-            <div class="servers-bar" id="serversBar">
-                <span>سێرڤەر هەڵبژێرە:</span>
-            </div>
+            <div class="servers-bar" id="serversBar"></div>
 
             <div class="video-wrapper">
                 <iframe id="videoPlayer" src="" allowfullscreen></iframe>
@@ -281,11 +278,10 @@
                 rating: "8.7",
                 poster: "https://unsplash.com",
                 desc: "گروپێک لە گەڕیدەکانی بۆشایی ئاسمان گەشت دەکەن بۆ دۆزینەوەی هەسارەیەکی نوێ بۆ مرۆڤایەتی.",
-                servers: [
-                    { name: "سێرڤەری 1 (AppShare)", url: "https://youtube.com" },
-                    { name: "سێرڤەری 2 (خێرا)", url: "https://youtube.com" },
-                    { name: "سێرڤەری 3 (یەدەگ)", url: "https://youtube.com" }
-                ]
+                s1_name: "سێرڤەری 1 (AppShare)",
+                s1_url: "https://youtube.com",
+                s2_name: "سێرڤەری 2 (خێرا)",
+                s2_url: "https://youtube.com"
             },
             {
                 title: "سوارچاکی تاریکی (The Dark Knight)",
@@ -295,10 +291,10 @@
                 rating: "9.0",
                 poster: "https://unsplash.com",
                 desc: "باتمان ڕووبەڕووی گەورەترین تاقیکردنەوە دەبێتەوە کاتێک جۆکەر پشێوی دەخاتە شاری گۆثامەوە.",
-                servers: [
-                    { name: "سێرڤەری 1 (AppShare)", url: "https://youtube.com" },
-                    { name: "سێرڤەری 2 (HD)", url: "https://youtube.com" }
-                ]
+                s1_name: "سێرڤەری 1 (AppShare)",
+                s1_url: "https://youtube.com",
+                s2_name: "سێرڤەری 2 (HD)",
+                s2_url: "https://youtube.com"
             },
             {
                 title: "ئینسێپشن (Inception)",
@@ -307,3 +303,7 @@
                 year: "2010",
                 rating: "8.8",
                 poster: "https://unsplash.com",
+                desc: "دزێک کە نهێنییەکان لەناو خەونی خەڵکیدا دەدزێت، ئەرکێکی نوێی پێدەدرێت.",
+                s1_name: "سێرڤەری 1 (AppShare)",
+                s1_url: "https://youtube.com",
+                s2_name: "سێرڤەری 2",
